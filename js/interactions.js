@@ -59,12 +59,8 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
         case 'vent':
           if (state.progress.ventOpened) {
             enterRoom('flourStorage');
-          } else if (!hasItem('hammer')) {
-            game.Render.setMessage(ui, '鐵網很牢固。也許沙發附近有能敲開它的工具。');
           } else {
-            state.progress.ventOpened = true;
-            unlockRoom('flourStorage');
-            refresh('你用金屬小鐵鎚敲開鐵網，通風管裡透出一點麵粉香。再點一次通風口即可爬進去。');
+            game.Render.setMessage(ui, '鐵網鎖得很緊。');
           }
           break;
         case 'travel':
@@ -72,7 +68,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           break;
         case 'portrait':
           if (state.progress.portraitGemPlaced) enterRoom('medicineRoom');
-          else game.Render.setMessage(ui, '畫像額頭的凹槽形狀，和胡蘿蔔紅寶石很相配。');
+          else game.Render.setMessage(ui, '畫像額頭的凹槽形狀。');
           break;
         case 'clue':
           state.clues[action.clue] = action.value;
@@ -82,7 +78,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           if (state.progress.osmanthusGround) {
             game.Render.setMessage(ui, '乾燥桂花已經搗成特調藥水了。');
           } else if (!hasItem('driedOsmanthus')) {
-            game.Render.setMessage(ui, '搗藥缽裡還缺少材料。先回大廳的桂花茶几找找看。');
+            game.Render.setMessage(ui, '搗藥缽裡還缺少材料。');
           } else {
             removeItem('driedOsmanthus');
             state.progress.osmanthusGround = true;
@@ -94,27 +90,31 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           if (state.progress.wellRaised) {
             enterRoom('brewery');
           } else if (!hasItem('osmanthusPotion')) {
-            game.Render.setMessage(ui, '井水深處有一個機關。或許桂花特調藥水能讓它啟動。');
+            game.Render.setMessage(ui, '井水深處有重力感應機關。');
           } else {
-            removeItem('osmanthusPotion');
-            state.progress.wellRaised = true;
-            unlockRoom('brewery');
-            refresh('你把桂花特調藥水倒進井裡，水面升起，露出通往柚子釀造室的梯子。再點一次水井即可下去。');
+            game.Render.setMessage(ui, '將東西丟進井裡，讓水面升起。');
           }
           break;
         case 'attic':
           if (state.progress.atticLadderLowered) {
             enterRoom('observatory');
-          } else if (!hasItem('yuzuKey')) {
-            game.Render.setMessage(ui, '天花板小門鎖住了，鎖孔像是柚子葉的形狀。');
+          } else if (!state.progress.sugarTested) {
+            game.Render.setMessage(ui, '門鎖卡榫還卡著。');
           } else {
-            state.progress.atticLadderLowered = true;
-            unlockRoom('observatory');
-            refresh('你用金黃柚子鑰匙打開小門，閣樓梯子緩緩放下。再點一次小門即可上樓。');
+            game.Render.setMessage(ui, '門鎖卡榫還卡著。');
           }
           break;
+        case 'barrel':
+          state.clues.clue3 = '3 : 5';
+          if (!state.progress.yuzuJuiceFound) {
+            state.progress.yuzuJuiceFound = true;
+            state.inventory.push('yuzuJuice');
+          }
+          refresh('解開桶身燈謎「三更半夜月當空，午時曬日柚正紅」，顯出線索 3：3 : 5。你也取了一小瓶釀造桶汁液。');
+          break;
         case 'safe':
-          game.Render.setMessage(ui, '中秋禮盒保險箱的月相轉盤還需要解開額外謎題。');
+          if (state.progress.safeOpened) game.Render.setMessage(ui, '中秋禮盒保險箱已經打開了。');
+          else game.Render.openSafe(ui);
           break;
         default:
           game.Render.setMessage(ui, action.message || object.detail);
@@ -124,23 +124,66 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     function handleDrop(itemId, object) {
       if (!object.drop) return;
       if (itemId !== object.drop.item) {
-        game.Render.setMessage(ui, `「${game.ITEMS[itemId].name}」似乎不能用在${object.name}上。`);
+        game.Render.setMessage(ui, `「${game.ITEMS[itemId]?.name || itemId}」似乎不能用在${object.name}上。`);
         return;
       }
 
-      if (object.drop.target === 'portrait') {
-        if (state.progress.portraitGemPlaced) {
-          game.Render.setMessage(ui, '胡蘿蔔紅寶石已經嵌入畫像，暗門已經開啟。');
-          return;
-        }
-        removeItem(itemId);
-        state.progress.portraitGemPlaced = true;
-        unlockRoom('medicineRoom');
-        refresh('紅寶石嵌入嫦娥畫像的額頭，畫像旁的暗門應聲開啟。點擊畫像即可進入廣寒搗藥室。');
-      } else if (object.drop.target === 'glow-wall') {
-        state.clues.flashlightOrder = '3-2-4-1';
-        refresh('紫色螢光數字顯現：3-2-4-1。排列順序已自動記入解謎手帳。');
+      switch (object.drop.target) {
+        case 'vent':
+          if (state.progress.ventOpened) return;
+          state.progress.ventOpened = true;
+          unlockRoom('flourStorage');
+          refresh('你用金屬小鐵鎚敲開鐵網，通風管裡透出一點麵粉香。點擊鐵網即可爬入麵粉庫。');
+          break;
+        case 'portrait':
+          if (state.progress.portraitGemPlaced) return;
+          removeItem(itemId);
+          state.progress.portraitGemPlaced = true;
+          unlockRoom('medicineRoom');
+          refresh('紅寶石嵌入嫦娥畫像的額頭，畫像旁的暗門應聲開啟。點擊畫像即可進入廣寒搗藥室。');
+          break;
+        case 'glow-wall':
+          state.clues.flashlightOrder = '3-2-4-1';
+          refresh('3-2-4-1');
+          break;
+        case 'well':
+          if (state.progress.wellRaised) return;
+          removeItem(itemId);
+          state.progress.wellRaised = true;
+          unlockRoom('brewery');
+          refresh('你將桂花特調藥水倒進井裡，水面升起，露出通往柚子釀造室的梯子。再點一次水井即可下去。');
+          break;
+        case 'sugar-tester':
+          if (state.progress.sugarTested) return;
+          removeItem(itemId);
+          state.progress.sugarTested = true;
+          refresh('釀造桶汁液滴入測試儀，指針顯示糖度 100%，天花板門鎖卡榫隨之放鬆。');
+          break;
+        case 'attic-hatch':
+          if (!state.progress.sugarTested) {
+            game.Render.setMessage(ui, '小門的卡榫仍卡著。先使用糖分測試儀讓卡榫放鬆。');
+            return;
+          }
+          if (state.progress.atticLadderLowered) return;
+          state.progress.atticLadderLowered = true;
+          unlockRoom('observatory');
+          refresh('你用金黃柚子鑰匙打開小門，閣樓梯子緩緩放下。點擊小門即可上樓。');
+          break;
       }
+    }
+
+    function submitSafeCode() {
+      if (ui.safeCode.value.trim() !== '248') {
+        ui.safeMessage.textContent = '密碼不正確，請再觀察星象圖與派對桌。';
+        return;
+      }
+      state.progress.safeOpened = true;
+      if (!state.progress.goldenPastryCollected) {
+        state.progress.goldenPastryCollected = true;
+        state.inventory.push('goldenPastry');
+      }
+      game.Render.closeSafe(ui);
+      refresh('保險箱打開了！你獲得終極蛋黃酥，解鎖中秋派對成就。');
     }
 
     function submitPassword() {
@@ -218,6 +261,10 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
       if (itemId && object) handleDrop(itemId, object);
     });
 
+    ui.notes.addEventListener('input', () => {
+      state.notes = ui.notes.value;
+    });
+
     ui.keypad.addEventListener('click', (event) => {
       const key = event.target.closest('[data-key]');
       if (key) pressKey(key.dataset.key);
@@ -232,6 +279,14 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     });
 
     ui.victory.querySelector('#victory-close').addEventListener('click', () => ui.victory.close());
+    ui.safe.querySelector('#safe-close').addEventListener('click', () => game.Render.closeSafe(ui));
+    ui.safe.querySelector('#safe-submit').addEventListener('click', submitSafeCode);
+    ui.safeCode.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitSafeCode();
+      }
+    });
   }
 
   game.Interactions = { bindInteractions };

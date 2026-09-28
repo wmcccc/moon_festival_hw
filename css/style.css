@@ -388,6 +388,33 @@ h1 {
   font-size: 11px;
 }
 
+.notes-label {
+  display: block;
+  margin: 18px 0 7px;
+  color: var(--moonlight);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.notebook-notes {
+  display: block;
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgb(7 17 39 / 35%);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.notebook-notes::placeholder {
+  color: #8998b1;
+}
+
 .clue-list {
   display: grid;
   gap: 0;
@@ -480,6 +507,20 @@ h1 {
   margin-bottom: 18px;
   color: var(--muted);
   font-size: 13px;
+}
+
+.safe-code-input {
+  width: 100%;
+  min-height: 50px;
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: rgb(7 17 39 / 60%);
+  color: var(--moonlight);
+  font: inherit;
+  font-size: 22px;
+  text-align: center;
+  letter-spacing: 8px;
 }
 
 .keypad-display {
