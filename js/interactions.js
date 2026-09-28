@@ -81,6 +81,9 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           refresh(action.message);
           break;
         case 'detail':
+          if (action.view === 'moon-chart') state.progress.starChartViewed = true;
+          if (action.view === 'party-table') state.progress.partyTableSearched = true;
+          if (action.view === 'star-notebook') state.progress.observatoryNotesRead = true;
           openDetail(object);
           break;
         case 'well':
@@ -154,6 +157,12 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           unlockRoom('observatory');
           refresh('你用金黃柚子鑰匙打開小門，閣樓梯子緩緩放下。點擊小門即可上樓。');
           refreshObjectDialog('鎖孔轉動，梯子已經放下。');
+          break;
+        case 'telescope':
+          if (state.progress.telescopeMountFreed) return;
+          state.progress.telescopeMountFreed = true;
+          refresh('望遠鏡支架的齒輪鬆開了。');
+          refreshObjectDialog('鏡筒可以活動，兩個刻度環也能轉動了。');
           break;
       }
     }
@@ -263,7 +272,12 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           enterRoom('observatory');
           break;
         case 'focus-stars':
-          if (state.progress.telescopeFocus >= 80) {
+          if (state.progress.telescopeMountFreed
+            && state.progress.starChartViewed
+            && state.progress.partyTableSearched
+            && state.progress.observatoryNotesRead
+            && state.progress.telescopeAngle === 38
+            && state.progress.telescopeFocus === 36) {
             state.clues.clue4 = '4 : 8';
             update('星星連線顯現 4 : 8。請自行記錄線索。');
           } else {
@@ -400,6 +414,9 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
         ui.objectDialogContent.querySelector('#focus-output').value = control.value;
         const art = ui.objectDialogContent.querySelector('.telescope-art');
         art.style.setProperty('--focus-blur', `${Math.max(0, (100 - state.progress.telescopeFocus) / 12)}px`);
+      } else if (control.id === 'telescope-angle') {
+        state.progress.telescopeAngle = Number(control.value);
+        ui.objectDialogContent.querySelector('#angle-output').value = control.value;
       }
     });
 

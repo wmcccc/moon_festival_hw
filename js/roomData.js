@@ -46,9 +46,9 @@ window.MoonBunnyGame.ROOM_DATA = {
     description: '觀星閣高踞月宮之上，星光透過圓頂灑落。望遠鏡、星象圖和派對桌上的紙條或許能解開額外挑戰。',
     objects: [
       { id: 'attic-ladder', name: '閣樓梯子', icon: '↩', detail: '可返回柚子釀造室', click: { type: 'travel', room: 'brewery' } },
-      { id: 'telescope', name: '天文望遠鏡', icon: '🔭', detail: '依照星象圖方向尋找亮星連線', click: { type: 'detail', view: 'telescope' } },
+      { id: 'telescope', name: '天文望遠鏡', icon: '🔭', detail: '鏡筒支架上的齒輪似乎卡住了', click: { type: 'detail', view: 'telescope' }, drop: { item: 'hammer', target: 'telescope' } },
       { id: 'moon-chart', name: '月球星象軌跡圖', icon: '🌙', detail: '地球、月球與星座標出觀測方向', click: { type: 'detail', view: 'moon-chart' } },
-      { id: 'party-table', name: '烤肉派對預備桌', icon: '🍡', detail: '烤肉架與棉花糖都準備好了', click: { type: 'detail', view: 'party-table' } },
+      { id: 'party-table', name: '烤肉派對預備桌', icon: '🍡', detail: '桌面擺著烤肉架、棉花糖和飲品', click: { type: 'detail', view: 'party-table' } },
       { id: 'star-notebook', name: '星光觀測紀錄冊', icon: '📖', detail: '記錄著月宮歷年的觀星筆記', click: { type: 'detail', view: 'star-notebook' } },
     ],
   },
