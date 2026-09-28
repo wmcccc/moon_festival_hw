@@ -134,6 +134,22 @@
       </div>
     </dialog>
 
+    <dialog class="object-dialog" id="object-dialog" aria-labelledby="object-dialog-title">
+      <section class="object-dialog-panel">
+        <button class="dialog-close" id="object-dialog-close" type="button" aria-label="關閉物件特寫">×</button>
+        <p class="eyebrow" id="object-dialog-room">MOON PALACE</p>
+        <div class="object-dialog-heading">
+          <span class="object-dialog-icon" id="object-dialog-icon" aria-hidden="true"></span>
+          <div>
+            <h2 id="object-dialog-title"></h2>
+            <p id="object-dialog-description"></p>
+          </div>
+        </div>
+        <div class="object-dialog-content" id="object-dialog-content"></div>
+        <p class="object-dialog-message" id="object-dialog-message" role="status" aria-live="polite"></p>
+      </section>
+    </dialog>
+
     <script defer src="js/gameState.js"></script>
     <script defer src="js/roomData.js"></script>
     <script defer src="js/render.js"></script>

@@ -279,6 +279,20 @@ h1 {
   box-shadow: inset 0 0 0 1px rgb(243 217 135 / 20%), 0 0 22px rgb(243 217 135 / 12%);
 }
 
+.object.is-opened {
+  animation: mechanism-release 480ms ease-out;
+  border-color: rgb(243 217 135 / 72%);
+}
+
+.object.is-glowing {
+  box-shadow: inset 0 0 28px rgb(190 120 255 / 17%), 0 0 22px rgb(190 120 255 / 18%);
+}
+
+@keyframes mechanism-release {
+  0%, 25%, 55%, 80% { transform: translateX(-3px); }
+  12%, 40%, 68%, 100% { transform: translateX(3px); }
+}
+
 .room-navigation {
   min-height: 62px;
   flex-wrap: wrap;
@@ -413,6 +427,293 @@ h1 {
 
 .notebook-notes::placeholder {
   color: #8998b1;
+}
+
+.object-dialog {
+  width: min(580px, calc(100% - 28px));
+  max-height: min(780px, calc(100% - 32px));
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgb(243 217 135 / 38%);
+  border-radius: 9px;
+  background:
+    radial-gradient(ellipse at 85% 0%, rgb(106 127 171 / 18%), transparent 45%),
+    #142344;
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 58%);
+}
+
+.object-dialog::backdrop {
+  background: rgb(4 10 24 / 78%);
+  backdrop-filter: blur(5px);
+}
+
+.object-dialog-panel {
+  position: relative;
+  padding: 25px;
+}
+
+.object-dialog-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 38px 17px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.object-dialog-heading h2 {
+  margin: 0 0 5px;
+  font-size: 22px;
+}
+
+.object-dialog-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.object-dialog-icon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgb(255 255 255 / 5%);
+  color: var(--moonlight);
+  font-size: 29px;
+}
+
+.object-dialog-content {
+  max-height: min(490px, 58vh);
+  overflow: auto;
+  padding: 18px 2px 4px;
+  color: #d2d9e8;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.object-dialog-content > p {
+  margin: 12px 0;
+}
+
+.closeup-art {
+  display: grid;
+  min-height: 145px;
+  place-content: center;
+  border: 1px solid rgb(221 230 255 / 12%);
+  border-radius: 7px;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgb(243 217 135 / 12%), transparent 58%),
+    rgb(7 17 39 / 48%);
+  color: var(--moonlight);
+  font-size: 35px;
+  text-align: center;
+}
+
+.closeup-art p,
+.closeup-art span {
+  font-size: 12px;
+}
+
+.sofa-art,
+.portrait-art,
+.table-art,
+.flour-art,
+.box-art,
+.mortar-art,
+.well-art,
+.cabinet-art,
+.herbs-art,
+.barrel-art,
+.yuzu-art,
+.tester-art,
+.hatch-art,
+.party-art {
+  background-color: rgb(59 68 97 / 45%);
+}
+
+.portrait-art {
+  position: relative;
+}
+
+.portrait-slot {
+  position: absolute;
+  top: 38%;
+  left: 53%;
+  color: var(--coral);
+  font-size: 24px !important;
+}
+
+.glow-wall-art {
+  min-height: 120px;
+  color: #aeb9ca;
+  font-size: 16px;
+}
+
+.glow-wall-art.is-revealed {
+  background: radial-gradient(ellipse, rgb(190 120 255 / 31%), rgb(44 30 77 / 65%) 55%, rgb(7 17 39 / 65%));
+  color: #e5b9ff;
+  text-shadow: 0 0 12px #d78cff;
+  letter-spacing: 3px;
+}
+
+.note-art {
+  min-height: 180px;
+  background: linear-gradient(145deg, #e6d6a9, #b49b6a);
+  color: #443b2b;
+  font-size: 20px;
+  line-height: 1.9;
+}
+
+.note-art span {
+  color: #655b45;
+}
+
+.modal-action {
+  min-height: 39px;
+  padding: 8px 14px;
+  border: 1px solid rgb(243 217 135 / 42%);
+  border-radius: 6px;
+  background: rgb(243 217 135 / 12%);
+  color: var(--moonlight);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-action:hover:not(:disabled) {
+  background: rgb(243 217 135 / 22%);
+}
+
+.modal-action:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.modal-drop-target {
+  display: grid;
+  min-height: 64px;
+  place-items: center;
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px dashed rgb(243 217 135 / 46%);
+  border-radius: 7px;
+  background: rgb(243 217 135 / 5%);
+  color: var(--moonlight);
+  text-align: center;
+}
+
+.modal-drop-target.is-drop-ready {
+  border-style: solid;
+  background: rgb(243 217 135 / 14%);
+  box-shadow: 0 0 22px rgb(243 217 135 / 16%);
+}
+
+.detail-success {
+  color: var(--mint);
+}
+
+.object-dialog-message {
+  min-height: 20px;
+  margin: 12px 0 0;
+  color: var(--moonlight);
+  font-size: 12px;
+}
+
+.dial-control {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 5px 12px;
+  margin: 12px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.dial-control input {
+  grid-column: 1 / -1;
+  width: 100%;
+  accent-color: var(--moonlight);
+}
+
+.drawer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  width: min(100%, 280px);
+  margin: 0 auto 14px;
+}
+
+.drawer-grid button {
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: rgb(255 255 255 / 5%);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.drawer-grid button:hover {
+  border-color: var(--moonlight);
+  background: rgb(243 217 135 / 12%);
+}
+
+.puzzle-progress,
+.page-controls span {
+  color: var(--moonlight);
+  text-align: center;
+}
+
+.is-blurred {
+  filter: blur(var(--focus-blur, 4px));
+  transition: filter 160ms ease;
+}
+
+.is-focused {
+  color: #fff1bd;
+  text-shadow: 0 0 10px rgb(255 232 155 / 75%);
+}
+
+.chart-art {
+  gap: 2px;
+  min-height: 190px;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 20%, rgb(243 217 135 / 15%) 20.5% 21%, transparent 21.5%),
+    rgb(7 17 39 / 48%);
+  color: #c7d2e7;
+  font-size: 16px;
+}
+
+.star-note-art {
+  min-height: 120px;
+  padding: 20px;
+  color: var(--moonlight);
+  font-size: 17px;
+}
+
+.page-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.page-controls .modal-action {
+  min-width: 90px;
+}
+
+.page-controls span {
+  font-size: 12px;
+}
+
+.object-dialog-content .pestle-action {
+  min-width: 130px;
+  min-height: 52px;
+  display: block;
+  margin: 12px auto;
 }
 
 .keypad-dialog {
@@ -580,6 +881,10 @@ h1 {
     margin-top: 22px;
   }
 
+  .object-dialog-panel {
+    padding: 20px;
+  }
+
 }
 
 @media (max-width: 460px) {
@@ -622,5 +927,6 @@ h1 {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
