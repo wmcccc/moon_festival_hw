@@ -16,7 +16,6 @@ Object.assign(window.MoonBunnyGame, {
     osmanthusPotion: { name: '桂花特調藥水', icon: '🧪' },
     yuzuKey: { name: '金黃柚子鑰匙', icon: '🗝️' },
     yuzuJuice: { name: '釀造桶柚子汁', icon: '🧴' },
-    goldenPastry: { name: '終極蛋黃酥', icon: '🥮' },
   },
   CLUE_ORDER: ['clue3', 'clue2', 'clue4', 'clue1'],
   createInitialState() {
@@ -45,8 +44,6 @@ Object.assign(window.MoonBunnyGame, {
         wellRaised: false,
         sugarTested: false,
         atticLadderLowered: false,
-        safeOpened: false,
-        goldenPastryCollected: false,
         escaped: false,
       },
       clues: {

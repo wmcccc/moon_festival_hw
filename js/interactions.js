@@ -112,10 +112,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           }
           refresh('解開桶身燈謎「三更半夜月當空，午時曬日柚正紅」，顯出線索 3：3 : 5。你也取了一小瓶釀造桶汁液。');
           break;
-        case 'safe':
-          if (state.progress.safeOpened) game.Render.setMessage(ui, '中秋禮盒保險箱已經打開了。');
-          else game.Render.openSafe(ui);
-          break;
         default:
           game.Render.setMessage(ui, action.message || object.detail);
       }
@@ -170,20 +166,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           refresh('你用金黃柚子鑰匙打開小門，閣樓梯子緩緩放下。點擊小門即可上樓。');
           break;
       }
-    }
-
-    function submitSafeCode() {
-      if (ui.safeCode.value.trim() !== '248') {
-        ui.safeMessage.textContent = '密碼不正確，請再觀察星象圖與派對桌。';
-        return;
-      }
-      state.progress.safeOpened = true;
-      if (!state.progress.goldenPastryCollected) {
-        state.progress.goldenPastryCollected = true;
-        state.inventory.push('goldenPastry');
-      }
-      game.Render.closeSafe(ui);
-      refresh('保險箱打開了！你獲得終極蛋黃酥，解鎖中秋派對成就。');
     }
 
     function submitPassword() {
@@ -279,14 +261,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     });
 
     ui.victory.querySelector('#victory-close').addEventListener('click', () => ui.victory.close());
-    ui.safe.querySelector('#safe-close').addEventListener('click', () => game.Render.closeSafe(ui));
-    ui.safe.querySelector('#safe-submit').addEventListener('click', submitSafeCode);
-    ui.safeCode.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        submitSafeCode();
-      }
-    });
   }
 
   game.Interactions = { bindInteractions };

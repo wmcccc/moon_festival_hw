@@ -27,9 +27,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
       keypadDisplay: document.querySelector('#keypad-display'),
       keypadMessage: document.querySelector('#keypad-message'),
       victory: document.querySelector('#victory-dialog'),
-      safe: document.querySelector('#safe-dialog'),
-      safeCode: document.querySelector('#safe-code'),
-      safeMessage: document.querySelector('#safe-message'),
     };
   }
 
@@ -40,7 +37,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     if (object.id === 'glimmering-well' && state.progress.wellRaised) return '梯子已升起，點擊進入釀造室';
     if (object.id === 'attic-hatch' && state.progress.atticLadderLowered) return '梯子已放下，點擊進入觀星閣';
     if (object.id === 'sugar-tester' && state.progress.sugarTested) return '糖度 100%，門鎖卡榫已放鬆';
-    if (object.id === 'gift-safe' && state.progress.safeOpened) return '保險箱已開啟';
     if (object.click.type === 'collect' && state.progress[object.click.once]) return '已取得';
     return object.detail;
   }
@@ -172,16 +168,5 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     if (!ui.victory.open) ui.victory.showModal();
   }
 
-  function openSafe(ui) {
-    ui.safeCode.value = '';
-    ui.safeMessage.textContent = '';
-    if (!ui.safe.open) ui.safe.showModal();
-    ui.safeCode.focus();
-  }
-
-  function closeSafe(ui) {
-    if (ui.safe.open) ui.safe.close();
-  }
-
-  game.Render = { getUI, renderGame, setMessage, openKeypad, closeKeypad, updateKeypad, showVictory, openSafe, closeSafe };
+  game.Render = { getUI, renderGame, setMessage, openKeypad, closeKeypad, updateKeypad, showVictory };
 })();

@@ -38,7 +38,7 @@ window.MoonBunnyGame.ROOM_DATA = {
       { id: 'well-ladder', name: '水井梯子', icon: '↩',  detail: '可返回廣寒搗藥室', click: { type: 'travel', room: 'medicineRoom' } },
       { id: 'distilling-barrel', name: '蒸餾釀造桶', icon: '🛢️', detail: '桶身刻著一首月夜燈謎', click: { type: 'barrel' } },
       { id: 'yuzu-pile', name: '柚子果實堆', icon: '🍊',  detail: '角落的柚子間閃著金光', click: { type: 'collect', item: 'yuzuKey', once: 'yuzuKeyFound', message: '你翻找柚子堆，在角落找到一把金黃柚子鑰匙。' } },
-      { id: 'sugar-tester', name: '糖分測試儀', icon: '％', detail: '需要釀造桶中的汁液才能測試', click: { type: 'inspect', message: '測試儀尚未啟動。' }, drop: { item: 'yuzuJuice', target: 'sugar-tester' } },
+      { id: 'sugar-tester', name: '糖分測試儀', icon: '％', detail: '需要投入液體才能測試', click: { type: 'inspect', message: '測試儀尚未啟動。' }, drop: { item: 'yuzuJuice', target: 'sugar-tester' } },
       { id: 'attic-hatch', name: '閣樓天花板小門', icon: '⌃', detail: '門鎖卡榫需要先放鬆', click: { type: 'attic' }, drop: { item: 'yuzuKey', target: 'attic-hatch' } },
     ],
   },
@@ -47,9 +47,9 @@ window.MoonBunnyGame.ROOM_DATA = {
     objects: [
       { id: 'attic-ladder', name: '閣樓梯子', icon: '↩', detail: '可返回柚子釀造室', click: { type: 'travel', room: 'brewery' } },
       { id: 'telescope', name: '天文望遠鏡', icon: '🔭', detail: '依照星象圖方向尋找亮星連線', click: { type: 'clue', clue: 'clue4', value: '4 : 8', message: '依亮星連線讀出星列，發現線索 ：4 : 8，已記入手帳。' } },
-      { id: 'moon-chart', name: '月球星象軌跡圖', icon: '🌙',  detail: '地球、月球與星座標出觀測方向', click: { type: 'inspect', message: '軌跡圖標出兩個圓月，提示望遠鏡的觀測方向，也提供保險箱密碼首位：2。' } },
-      { id: 'party-table', name: '烤肉派對預備桌', icon: '🍡',  detail: '棉花糖下壓著一張小紙條', click: { type: 'inspect', message: '紙條記著「四串烤肉、八顆棉花糖」，和星象圖合起來可得保險箱密碼 248。' } },
-      { id: 'gift-safe', name: '中秋禮盒保險箱', icon: '🎁',  detail: '月相轉盤旁有三位數密碼盤', click: { type: 'safe' } },
+      { id: 'moon-chart', name: '月球星象軌跡圖', icon: '🌙', detail: '地球、月球與星座標出觀測方向', click: { type: 'inspect', message: '星象圖標示地球、月球與星座的相對位置，依照軌跡轉動望遠鏡，就能找到亮星連線。' } },
+      { id: 'party-table', name: '烤肉派對預備桌', icon: '🍡', detail: '烤肉架與棉花糖都準備好了', click: { type: 'inspect', message: '桌上擺滿烤肉架與棉花糖，月兔逃出去後就能開始中秋派對。' } },
+      { id: 'star-notebook', name: '星光觀測紀錄冊', icon: '📖', detail: '記錄著月宮歷年的觀星筆記', click: { type: 'inspect', message: '紀錄冊寫著：「先沿星象圖的弧線尋找亮星，再以望遠鏡對焦。」' } },
     ],
   },
 };
