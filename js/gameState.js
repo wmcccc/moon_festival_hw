@@ -45,7 +45,7 @@ Object.assign(window.MoonBunnyGame, {
         mortarStrikes: 0,
         cabinetHintFound: false,
         cabinetSequence: [],
-        mochiDial: 0,
+        mochiDial: 3,
         yuzuMoves: 0,
         barrelHour: 0,
         barrelMinute: 0,

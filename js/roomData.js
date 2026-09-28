@@ -26,7 +26,7 @@ window.MoonBunnyGame.ROOM_DATA = {
     description: '藥香充滿廣寒宮的搗藥室，微光映在井面。藥櫃與抓藥包的排列似乎藏著空間提示。',
     objects: [
       { id: 'portrait-door', name: '畫像暗門', icon: '↩',detail: '可返回月宮大廳', click: { type: 'travel', room: 'hall' } },
-      { id: 'mortar', name: '玉兔搗藥缽', icon: '🥣', detail: '放入乾燥桂花後連擊搗藥杵三次', click: { type: 'detail', view: 'mortar' }, drop: { item: 'driedOsmanthus', target: 'mortar' } },
+      { id: 'mortar', name: '玉兔搗藥缽', icon: '🥣', detail: '缽底留有淡淡花香', click: { type: 'detail', view: 'mortar' }, drop: { item: 'driedOsmanthus', target: 'mortar' } },
       { id: 'glimmering-well', name: '微光水井', icon: '🪣',  detail: '井水下方隱約有梯子的影子', click: { type: 'well' }, drop: { item: 'osmanthusPotion', target: 'well' } },
       { id: 'herb-cabinet', name: '古木藥櫃', icon: '🗄️', detail: '甘草、桂皮、黃耆、枸杞藥罐排列在抽屜前', click: { type: 'detail', view: 'herb-cabinet' } },
       { id: 'medicine-packets', name: '中藥抓藥包', icon: '🌿', detail: '圖案符號排出一道空間軌跡', click: { type: 'detail', view: 'medicine-packets' } },
@@ -38,8 +38,8 @@ window.MoonBunnyGame.ROOM_DATA = {
       { id: 'well-ladder', name: '水井梯子', icon: '↩',  detail: '可返回廣寒搗藥室', click: { type: 'travel', room: 'medicineRoom' } },
       { id: 'distilling-barrel', name: '蒸餾釀造桶', icon: '🛢️', detail: '桶身刻著一首月夜燈謎', click: { type: 'detail', view: 'distilling-barrel' } },
       { id: 'yuzu-pile', name: '柚子果實堆', icon: '🍊', detail: '角落的柚子間閃著金光', click: { type: 'detail', view: 'yuzu-pile' } },
-      { id: 'sugar-tester', name: '糖分測試儀', icon: '％', detail: '需要投入液體才能測試', click: { type: 'detail', view: 'sugar-tester' }, drop: { item: 'yuzuJuice', target: 'sugar-tester' } },
-      { id: 'attic-hatch', name: '閣樓天花板小門', icon: '⌃', detail: '門鎖卡榫需要先放鬆', click: { type: 'detail', view: 'attic-hatch' }, drop: { item: 'yuzuKey', target: 'attic-hatch' } },
+      { id: 'sugar-tester', name: '糖分測試儀', icon: '％', detail: '玻璃試管乾燥而空著', click: { type: 'detail', view: 'sugar-tester' }, drop: { item: 'yuzuJuice', target: 'sugar-tester' } },
+      { id: 'attic-hatch', name: '閣樓天花板小門', icon: '⌃', detail: '門縫間有淡淡柚香，鎖孔看起來很舊', click: { type: 'detail', view: 'attic-hatch' }, drop: { item: 'yuzuKey', target: 'attic-hatch' } },
     ],
   },
   observatory: {

@@ -56,11 +56,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
       game.Render.openObjectDialog({ ...object, click: { ...object.click, view } }, state);
     }
 
-    function useItemOnTarget(itemId, target) {
-      const object = game.ROOM_DATA[state.currentRoom].objects.find((entry) => entry.drop?.target === target);
-      if (object) handleDrop(itemId, object);
-    }
-
     function interact(object) {
       const action = object.click;
       switch (action.type) {
@@ -73,18 +68,13 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           addItem(action.item, action.once, action.message);
           break;
         case 'vent':
-          if (state.progress.ventOpened) {
-            openDetail(object, 'vent');
-          } else {
-            openDetail(object, 'vent');
-          }
+          openDetail(object, 'vent');
           break;
         case 'travel':
           enterRoom(action.room);
           break;
         case 'portrait':
-          if (state.progress.portraitGemPlaced) enterRoom('medicineRoom');
-          else game.Render.setMessage(ui, '畫像額頭的凹槽形狀。');
+          openDetail(object, 'portrait');
           break;
         case 'clue':
           state.clues[action.clue] = action.value;
@@ -93,31 +83,11 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
         case 'detail':
           openDetail(object);
           break;
-        case 'mortar':
-          if (state.progress.osmanthusGround) {
-            game.Render.setMessage(ui, '乾燥桂花已經搗成特調藥水了。');
-          } else if (!hasItem('driedOsmanthus')) {
-            game.Render.setMessage(ui, '搗藥缽裡還缺少材料。');
-          } else {
-            removeItem('driedOsmanthus');
-            state.progress.osmanthusGround = true;
-            state.inventory.push('osmanthusPotion');
-            refresh('你將乾燥桂花放入玉兔搗藥缽，搗碎後調製成桂花特調藥水。');
-          }
-          break;
         case 'well':
           openDetail(object, 'well');
           break;
         case 'attic':
           openDetail(object, 'attic-hatch');
-          break;
-        case 'barrel':
-          state.clues.clue3 = '3 : 5';
-          if (!state.progress.yuzuJuiceFound) {
-            state.progress.yuzuJuiceFound = true;
-            state.inventory.push('yuzuJuice');
-          }
-          refresh('解開桶身燈謎「三更半夜月當空，午時曬日柚正紅」，顯出線索 3：3 : 5。你也取了一小瓶釀造桶汁液。');
           break;
         default:
           game.Render.setMessage(ui, action.message || object.detail);
@@ -176,7 +146,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           break;
         case 'attic-hatch':
           if (!state.progress.sugarTested) {
-            game.Render.setMessage(ui, '小門的卡榫仍卡著。先使用糖分測試儀讓卡榫放鬆。');
+            game.Render.setMessage(ui, '門鎖卡住，紋絲不動。');
             return;
           }
           if (state.progress.atticLadderLowered) return;
@@ -235,12 +205,12 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           update('你取得月兔手電筒。');
           break;
         case 'open-mochi-box':
-          if (state.progress.mochiDial === 5) {
+          if (state.progress.mochiDial === 0) {
             state.progress.mochiBoxOpened = true;
             state.clues.clue1 = '1 : 0';
             update('箱蓋彈開，內側烙印著 1 : 0。請自行記錄線索。');
           } else {
-            refreshObjectDialog('刻度沒有對準烤箱標籤，再調整一次。');
+            refreshObjectDialog('旋鈕轉動，箱蓋仍然緊閉。');
           }
           break;
         case 'search-herbs':
@@ -274,7 +244,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
             if (!hasItem('yuzuJuice')) state.inventory.push('yuzuJuice');
             update('閥門解鎖，取樣口露出 3 : 5 刻印，你也取得釀造桶柚子汁。');
           } else {
-            refreshObjectDialog('時辰刻度不正確，請對照詩句再試一次。');
+            refreshObjectDialog('閥門轉動了一下，又卡回原位。');
           }
           break;
         case 'move-yuzu':
@@ -297,7 +267,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
             state.clues.clue4 = '4 : 8';
             update('星星連線顯現 4 : 8。請自行記錄線索。');
           } else {
-            refreshObjectDialog('星點仍然模糊，請繼續調焦。');
+            refreshObjectDialog('星點仍然重疊，看不清輪廓。');
           }
           break;
         case 'previous-page':
@@ -320,7 +290,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
               update(state.clues.clue2 ? '抽屜打開，貼紙顯示 2 : 1。請自行記錄線索。' : '這個抽屜位置正確，繼續沿軌跡尋找。');
             } else {
               state.progress.cabinetSequence = [];
-              update('抽屜沒有打開，順序重置，請依照軌跡提示重試。');
+              update('抽屜彈回原位。');
             }
           }
       }
