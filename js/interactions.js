@@ -272,16 +272,17 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           enterRoom('observatory');
           break;
         case 'focus-stars':
-          if (state.progress.telescopeMountFreed
-            && state.progress.starChartViewed
-            && state.progress.partyTableSearched
-            && state.progress.observatoryNotesRead
-            && state.progress.telescopeAngle === 38
-            && state.progress.telescopeFocus === 36) {
+          if (!state.progress.telescopeMountFreed) {
+            refreshObjectDialog('鏡筒支架卡住了，刻度環無法轉動。');
+          } else if (state.progress.telescopeAngle !== 38) {
+            refreshObjectDialog('鏡筒方位尚未對準星象圖指示的交角。');
+          } else if (state.progress.telescopeFocus !== 36) {
+            refreshObjectDialog('星點仍然有些重疊分散，焦距還需要微調。');
+          } else if (!state.progress.starChartViewed || !state.progress.partyTableSearched || !state.progress.observatoryNotesRead) {
+            refreshObjectDialog('星點隱約成形，但似乎還需翻閱觀星手稿與各項線索確認細節。');
+          } else {
             state.clues.clue4 = '4 : 8';
             update('星星連線顯現 4 : 8。請自行記錄線索。');
-          } else {
-            refreshObjectDialog('星點仍然重疊，看不清輪廓。');
           }
           break;
         case 'previous-page':
@@ -413,7 +414,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
         state.progress.telescopeFocus = Number(control.value);
         ui.objectDialogContent.querySelector('#focus-output').value = control.value;
         const art = ui.objectDialogContent.querySelector('.telescope-art');
-        art.style.setProperty('--focus-blur', `${Math.max(0, (100 - state.progress.telescopeFocus) / 12)}px`);
+        art.style.setProperty('--focus-blur', `${Math.abs(state.progress.telescopeFocus - 36) / 5}px`);
       } else if (control.id === 'telescope-angle') {
         state.progress.telescopeAngle = Number(control.value);
         ui.objectDialogContent.querySelector('#angle-output').value = control.value;

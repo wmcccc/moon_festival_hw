@@ -48,7 +48,7 @@ window.MoonBunnyGame.ROOM_DATA = {
       { id: 'attic-ladder', name: '閣樓梯子', icon: '↩', detail: '可返回柚子釀造室', click: { type: 'travel', room: 'brewery' } },
       { id: 'telescope', name: '天文望遠鏡', icon: '🔭', detail: '鏡筒支架上的齒輪似乎卡住了', click: { type: 'detail', view: 'telescope' }, drop: { item: 'hammer', target: 'telescope' } },
       { id: 'moon-chart', name: '月球星象軌跡圖', icon: '🌙', detail: '地球、月球與星座標出觀測方向', click: { type: 'detail', view: 'moon-chart' } },
-      { id: 'party-table', name: '烤肉派對預備桌', icon: '🍡', detail: '桌面擺著烤肉架、棉花糖和飲品', click: { type: 'detail', view: 'party-table' } },
+      { id: 'party-table', name: '烤肉派對預備桌', icon: '🍡', detail: '桌面擺著冷飲、烤籤與備忘便籤', click: { type: 'detail', view: 'party-table' } },
       { id: 'star-notebook', name: '星光觀測紀錄冊', icon: '📖', detail: '記錄著月宮歷年的觀星筆記', click: { type: 'detail', view: 'star-notebook' } },
     ],
   },

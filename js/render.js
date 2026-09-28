@@ -191,13 +191,17 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           ? '<div class="closeup-art telescope-art is-focused">✦　4 : 8　✦</div><p class="detail-success">星線終於清晰地交會，顯出 `4 : 8`。請自行記錄線索。</p>'
           : !state.progress.telescopeMountFreed
             ? '<div class="closeup-art telescope-art is-blurred">✦　✧　✦</div><p>鏡筒支架的齒輪卡住了，刻度環無法轉動。</p><div class="modal-drop-target" data-modal-drop="telescope">拖曳物件到此</div>'
-            : `<div class="closeup-art telescope-art is-blurred" style="--focus-blur:${Math.max(0, (100 - state.progress.telescopeFocus) / 12)}px">✦　✧　✦</div><p>兩個刻度環分別影響星圖方位與影像清晰度。</p><label class="dial-control"><span>方位環</span><output id="angle-output">${state.progress.telescopeAngle}</output>°<input id="telescope-angle" type="range" min="0" max="360" value="${state.progress.telescopeAngle}"></label><label class="dial-control"><span>焦距環</span><output id="focus-output">${state.progress.telescopeFocus}</output><input id="telescope-focus" type="range" min="0" max="100" value="${state.progress.telescopeFocus}"></label><button class="modal-action" data-modal-action="focus-stars" type="button">觀察星空</button>`;
+            : `<div class="closeup-art telescope-art is-blurred" style="--focus-blur:${Math.abs(state.progress.telescopeFocus - 36) / 5}px">✦　✧　✦</div><p>兩個刻度環分別影響星圖方位與影像清晰度。</p><label class="dial-control"><span>方位環</span><output id="angle-output">${state.progress.telescopeAngle}</output>°<input id="telescope-angle" type="range" min="0" max="360" value="${state.progress.telescopeAngle}"></label><label class="dial-control"><span>焦距環</span><output id="focus-output">${state.progress.telescopeFocus}</output><input id="telescope-focus" type="range" min="0" max="100" value="${state.progress.telescopeFocus}"></label><button class="modal-action" data-modal-action="focus-stars" type="button">觀察星空</button>`;
       case 'moon-chart':
         return '<div class="closeup-art chart-art"><span>地球　◯</span><span>　╲　✦ ✦</span><span>月球　◯　✧ ✦</span><span>　╲　✦</span><span>星座　✧</span></div><p>西側月弧與主星連線的交角記為 38°；八顆主星沿著弧線排列。</p>';
       case 'party-table':
-        return '<div class="closeup-art party-art">🥤　🥤　🥤<br>🍢　🍢　🍢　🍢　🍢　🍢</div><p>桌上有三杯冷飲和六支烤肉籤。旁邊的觀測筆記註明：這兩組數量並列，就是焦距刻度。</p>';
+        return '<div class="closeup-art party-art">🥤　🥤　🥤<br>🍢　🍢　🍢　🍢　🍢　🍢</div><p>桌上整齊排著 3 盞冷飲與 6 串烤肉籤。旁邊壓著一張派對備忘便籤：</p><p class="note-quote" style="margin:8px 0;padding:9px 12px;background:rgba(243,217,135,0.08);border-left:3px solid var(--moonlight);color:var(--moonlight);font-size:12px;line-height:1.7;">「先備三盞冰露，再進六串炙玉；依序凝望，焦點自明。」</p>';
       case 'star-notebook': {
-        const pages = ['月弧與主星相交之處，標記著鏡筒應朝的方向。', '方位未定之前，焦環上的刻度沒有意義。', '焦距的線索，藏在桌邊冰盞與竹籤留下的數目裡。'];
+        const pages = [
+          '月弧與主星相交之處，標記著鏡筒應朝的方向。',
+          '方位未定之前，焦環上的刻度沒有意義。',
+          '若鏡中星影模糊，不妨留意案前冰盞與炙籤之數，以此雙數定其焦距。',
+        ];
         return `<div class="closeup-art star-note-art">${pages[state.progress.starNotebookPage]}</div><div class="page-controls"><button class="modal-action" data-modal-action="previous-page" type="button" ${state.progress.starNotebookPage === 0 ? 'disabled' : ''}>上一頁</button><span>${state.progress.starNotebookPage + 1} / ${pages.length}</span><button class="modal-action" data-modal-action="next-page" type="button" ${state.progress.starNotebookPage === pages.length - 1 ? 'disabled' : ''}>下一頁</button></div>`;
       }
       default:
