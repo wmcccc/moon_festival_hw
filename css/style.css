@@ -415,54 +415,6 @@ h1 {
   color: #8998b1;
 }
 
-.clue-list {
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.clue-entry {
-  display: flex;
-  min-height: 55px;
-  align-items: center;
-  gap: 12px;
-  border-top: 1px solid rgb(221 230 255 / 10%);
-}
-
-.clue-entry[hidden] {
-  display: none;
-}
-
-.clue-index {
-  display: grid;
-  width: 27px;
-  aspect-ratio: 1;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 50%;
-  background: rgb(243 217 135 / 12%);
-  color: var(--moonlight);
-  font-size: 10px;
-  font-weight: 800;
-}
-
-.clue-copy {
-  display: grid;
-  gap: 3px;
-  font-size: 12px;
-}
-
-.clue-copy strong {
-  font-weight: 600;
-}
-
-.clue-copy span {
-  color: var(--muted);
-  font-size: 11px;
-}
-
 .keypad-dialog {
   width: min(360px, calc(100% - 32px));
   padding: 0;
@@ -628,14 +580,6 @@ h1 {
     margin-top: 22px;
   }
 
-  .clue-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 14px;
-  }
-
-  .clue-order {
-    grid-column: 1 / -1;
-  }
 }
 
 @media (max-width: 460px) {

@@ -2,14 +2,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
 
 (() => {
   const game = window.MoonBunnyGame;
-  const clueLabels = {
-    clue1: '房間 1',
-    clue2: '房間 2',
-    clue3: '房間 3',
-    clue4: '房間 4',
-    flashlightOrder: '暗光排列順序',
-  };
-
   function getUI() {
     return {
       roomIndex: document.querySelector('#room-index'),
@@ -21,7 +13,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
       gameMessage: document.querySelector('#game-message'),
       inventory: document.querySelector('#inventory-list'),
       inventoryCount: document.querySelector('#inventory-count'),
-      clues: document.querySelector('#clue-list'),
       notes: document.querySelector('#notebook-notes'),
       keypad: document.querySelector('#password-dialog'),
       keypadDisplay: document.querySelector('#keypad-display'),
@@ -117,21 +108,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     });
   }
 
-  function renderClues(state, ui) {
-    ui.clues.querySelectorAll('[data-clue-id]').forEach((entry) => {
-      const clueId = entry.dataset.clueId;
-      const value = state.clues[clueId];
-      if (clueId === 'flashlightOrder' && !value) {
-        entry.hidden = true;
-        return;
-      }
-      entry.hidden = false;
-      const copy = entry.querySelector('.clue-copy');
-      copy.querySelector('strong').textContent = clueLabels[clueId];
-      copy.querySelector('span').textContent = value || '尚未發現';
-    });
-  }
-
   function renderGame(state, ui) {
     const room = game.ROOMS[state.currentRoom];
     const description = game.ROOM_DATA[state.currentRoom].description;
@@ -143,7 +119,6 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     renderObjects(state, ui);
     renderVisitedRooms(state, ui);
     renderInventory(state, ui);
-    renderClues(state, ui);
   }
 
   function setMessage(ui, message) {
