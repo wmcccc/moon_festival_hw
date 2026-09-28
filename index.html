@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101d3b">
+    <title>簡單到幼稚園小朋友都能過TAT</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="sky-decoration" aria-hidden="true">
+      <span class="moon"></span>
+    </div>
+
+    <main class="game" id="game">
+      <header class="topbar">
+        <a class="wordmark" href="#game" aria-label="月兔的中秋密室大逃脫首頁">
+          <span class="wordmark-icon" aria-hidden="true">月</span>
+          <span>中秋密室小逃脫</span>
+        </a>
+        <p class="chapter-label"><span class="status-dot"></span> 廣寒宮工作坊</p>
+      </header>
+
+      <div class="game-layout">
+        <section class="scene" aria-labelledby="room-title">
+          <div class="scene-heading">
+            <p class="eyebrow" id="room-index">CURRENT ROOM <span>・</span> 00</p>
+            <h1 id="room-title">月宮大廳</h1>
+            <p class="room-description" id="room-description">
+              月光灑進寬敞的大廳，烤肉派對的香氣從門縫飄來。月亮大門卻緊緊鎖著，得想辦法找到出口。
+            </p>
+          </div>
+
+          <section class="objects" aria-labelledby="objects-title">
+            <div class="section-heading">
+              <h2 id="objects-title">大廳裡的物件</h2>
+              <span class="section-count" id="object-count">06 OBJECTS</span>
+            </div>
+            <div class="object-grid" id="room-objects">
+              <button class="object object-door" type="button" data-object-id="moon-door" data-action="open-keypad">
+                <span class="object-illustration" aria-hidden="true">🚪</span>
+                <span class="object-name">月亮大門</span>
+                <span class="object-detail">胡蘿蔔鎖頭</span>
+              </button>
+              <button class="object" type="button" data-object-id="rabbit-sofa" data-action="inspect">
+                <span class="object-illustration" aria-hidden="true">🛋️</span>
+                <span class="object-name">絨毛兔兔沙發</span>
+                <span class="object-detail">軟綿綿的坐墊</span>
+              </button>
+              <button class="object" type="button" data-object-id="vent-grate" data-action="inspect">
+                <span class="object-illustration" aria-hidden="true">▦</span>
+                <span class="object-name">通風口鐵網</span>
+                <span class="object-detail">似乎可以敲開</span>
+              </button>
+              <button class="object object-drop-target" type="button" data-object-id="chang-e-portrait" data-drop-target="portrait" data-action="inspect">
+                <span class="object-illustration" aria-hidden="true">🖼️</span>
+                <span class="object-name">嫦娥仙子畫像</span>
+                <span class="object-detail">額頭留著一個空位</span>
+              </button>
+              <button class="object object-drop-target" type="button" data-object-id="glow-wall" data-drop-target="glow-wall" data-action="inspect">
+                <span class="object-illustration" aria-hidden="true">✧</span>
+                <span class="object-name">空白螢光牆面</span>
+                <span class="object-detail">牆上什麼也沒有</span>
+              </button>
+              <button class="object" type="button" data-object-id="osmanthus-table" data-action="inspect">
+                <span class="object-illustration" aria-hidden="true">🍵</span>
+                <span class="object-name">桂花茶几</span>
+                <span class="object-detail">月餅與柚子皮帽</span>
+              </button>
+            </div>
+          </section>
+
+          <nav class="room-navigation" id="room-navigation" aria-label="已探索空間">
+            <span class="navigation-label">已探索空間</span>
+            <div id="room-links">
+              <p class="empty-navigation">尚未找到新的路徑</p>
+            </div>
+          </nav>
+
+          <p class="game-message" id="game-message" role="status" aria-live="polite">
+            月兔好像把重要的東西藏在大廳裡了。
+          </p>
+        </section>
+
+        <aside class="journal" aria-label="玩家物品與線索">
+          <section class="inventory" aria-labelledby="inventory-title">
+            <div class="section-heading">
+              <h2 id="inventory-title">隨身背包</h2>
+              <span class="section-count" id="inventory-count">00</span>
+            </div>
+            <ul class="inventory-list" id="inventory-list" aria-live="polite">
+              <li class="inventory-empty" id="inventory-empty">背包目前是空的</li>
+            </ul>
+          </section>
+
+          <section class="notebook" aria-labelledby="notebook-title">
+            <div class="section-heading">
+              <h2 id="notebook-title">月兔解謎手帳</h2>
+              <span class="notebook-mark" aria-hidden="true">✎</span>
+            </div>
+            <p class="notebook-intro">發現的線索會記在這裡</p>
+            <ol class="clue-list" id="clue-list">
+              <li class="clue-entry" data-clue-id="clue1">
+                <span class="clue-index">01</span><span class="clue-copy"><strong>房間 1</strong><span>尚未發現</span></span>
+              </li>
+              <li class="clue-entry" data-clue-id="clue2">
+                <span class="clue-index">02</span><span class="clue-copy"><strong>房間 2</strong><span>尚未發現</span></span>
+              </li>
+              <li class="clue-entry" data-clue-id="clue3">
+                <span class="clue-index">03</span><span class="clue-copy"><strong>房間 3</strong><span>尚未發現</span></span>
+              </li>
+              <li class="clue-entry" data-clue-id="clue4">
+                <span class="clue-index">04</span><span class="clue-copy"><strong>房間 4</strong><span>尚未發現</span></span>
+              </li>
+              <li class="clue-entry clue-order" data-clue-id="flashlightOrder">
+                <span class="clue-index">✦</span><span class="clue-copy"><strong>暗光排列順序</strong><span>尚未發現</span></span>
+              </li>
+            </ol>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <dialog class="keypad-dialog" id="password-dialog" aria-labelledby="keypad-title">
+      <form method="dialog" class="keypad-form" id="keypad-form">
+        <button class="dialog-close" type="submit" aria-label="關閉密碼盤">×</button>
+        <p class="eyebrow">MOON GATE</p>
+        <h2 id="keypad-title">月亮大門</h2>
+        <p class="keypad-prompt">輸入四位數密碼</p>
+        <output class="keypad-display" id="keypad-display" aria-label="目前輸入的密碼">----</output>
+        <div class="keypad-grid" aria-label="密碼鍵盤">
+          <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button>
+          <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button>
+          <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button>
+          <button class="keypad-clear" type="button" data-key="clear">清除</button><button type="button" data-key="0">0</button><button class="keypad-delete" type="button" data-key="delete" aria-label="刪除一位">⌫</button>
+        </div>
+        <button class="keypad-submit" type="button" id="keypad-submit">確認</button>
+        <p class="keypad-message" id="keypad-message" role="status" aria-live="polite"></p>
+      </form>
+    </dialog>
+
+    <dialog class="victory-dialog" id="victory-dialog" aria-labelledby="victory-title">
+      <div class="victory-content">
+        <span class="victory-moon" aria-hidden="true">☾</span>
+        <p class="eyebrow">ESCAPED</p>
+        <h2 id="victory-title">成功逃出月宮！</h2>
+        <p>月亮大門在身後緩緩打開，月兔終於趕上中秋派對了。</p>
+        <button class="keypad-submit" id="victory-close" type="button">太好了</button>
+      </div>
+    </dialog>
+
+    <script defer src="js/gameState.js"></script>
+    <script defer src="js/roomData.js"></script>
+    <script defer src="js/render.js"></script>
+    <script defer src="js/interactions.js"></script>
+    <script defer src="js/main.js"></script>
+  </body>
+</html>
