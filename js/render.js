@@ -166,7 +166,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
         return `<div class="drawer-grid" aria-label="藥櫃 4 乘 4 抽屜">${Array.from({ length: 16 }, (_, index) => `<button type="button" data-drawer="${index + 1}" aria-label="抽屜 ${index + 1}">${index + 1}</button>`).join('')}</div><p>抽屜圖樣與藥包紙上的線條似乎相互呼應。</p><p class="puzzle-progress">操作進度：${state.progress.cabinetSequence.length} / 3</p>`;
       case 'medicine-packets':
         return state.progress.osmanthusCollected
-          ? '<div class="closeup-art herbs-art">🌿　🌼</div><p class="detail-success">其中一個藥包已經打開，包裝紙上的線條交錯延伸。</p>'
+          ? '<div class="closeup-art herbs-art">🌿　🌼</div><p class="detail-success">鬆開的藥包裡有乾燥桂花。紙背留著一行淡字：「甘草成雙，桂皮伴北斗，黃耆守著十一更的月色。」</p>'
           : '<div class="closeup-art herbs-art">🌿　🌿　🌿</div><p>藥包上的圖樣各不相同，右下角有一處綁繩鬆開了。</p><button class="modal-action" data-modal-action="search-herbs" type="button">檢查藥包</button>';
       case 'distilling-barrel':
         return state.progress.yuzuJuiceFound
