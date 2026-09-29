@@ -1,0 +1,16 @@
+# 依賴與建置產物
+node_modules/
+dist/
+build/
+
+# 編輯器與作業系統
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# 憑證與環境檔（本專案不需要，但避免誤提交）
+.env
+.env.*
+*.pem
