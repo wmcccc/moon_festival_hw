@@ -27,6 +27,14 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
       objectDialogMessage: document.querySelector('#object-dialog-message'),
       manualTrigger: document.querySelector('#manual-trigger'),
       manual: document.querySelector('#manual-dialog'),
+      hintTrigger: document.querySelector('#hint-trigger'),
+      hint: document.querySelector('#hint-dialog'),
+      hintCount: document.querySelector('#hint-count'),
+      hintRoom: document.querySelector('#hint-room'),
+      hintGoal: document.querySelector('#hint-goal'),
+      hintText: document.querySelector('#hint-text'),
+      hintNudge: document.querySelector('#hint-nudge'),
+      hintMore: document.querySelector('#hint-more'),
     };
   }
 
@@ -275,5 +283,59 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     if (ui.manual.open) ui.manual.close();
   }
 
-  game.Render = { getUI, renderGame, setMessage, openKeypad, closeKeypad, updateKeypad, showVictory, openObjectDialog, closeObjectDialog, openManual, closeManual };
+  // 提示只指向「目前房間看得到的物件」：房間不同就不加標記，避免指著看不見的地方。
+  function highlightHintTarget(state, ui, step) {
+    ui.objects.querySelectorAll('.is-hinted').forEach((object) => object.classList.remove('is-hinted'));
+    const room = game.ROOM_DATA[state.currentRoom];
+    if (!step.object || !room.objects.some((object) => object.id === step.object)) return;
+    ui.objects.querySelector(`[data-object-id="${step.object}"]`)?.classList.add('is-hinted');
+  }
+
+  function renderHint(state, ui, step) {
+    ui.hintGoal.textContent = step.goal;
+    ui.hintText.textContent = step.text;
+
+    if (step.room) {
+      ui.hintRoom.hidden = false;
+      ui.hintRoom.innerHTML = step.room === state.currentRoom
+        ? '下一步就在<b>這個房間</b>裡'
+        : `下一步在 <b>${game.ROOMS[step.room].name}</b>（你現在在${game.ROOMS[state.currentRoom].name}）`;
+    } else {
+      ui.hintRoom.hidden = true;
+      ui.hintRoom.textContent = '';
+    }
+
+    // 已經展開過就不再顯示按鈕，展開後由 hintNudge 顯示補充說明。
+    const canReveal = Boolean(step.nudge) && !state.hints.revealed;
+    ui.hintMore.hidden = !canReveal;
+    ui.hintNudge.hidden = !step.nudge || !state.hints.revealed;
+    if (!ui.hintNudge.hidden) ui.hintNudge.textContent = step.nudge;
+
+    ui.hintCount.textContent = `已使用 ${state.hints.count} 次提示`;
+  }
+
+  function openHint(state, ui) {
+    const step = game.findHintStep(state);
+    // 進度推進到下一個目標時，自動收起上一題的補充說明。
+    if (state.hints.stepId !== step.id) {
+      state.hints.stepId = step.id;
+      state.hints.revealed = false;
+    }
+    state.hints.count += 1;
+    renderHint(state, ui, step);
+    highlightHintTarget(state, ui, step);
+    if (!ui.hint.open) ui.hint.showModal();
+  }
+
+  function revealHintDetail(state, ui) {
+    const step = game.findHintStep(state);
+    state.hints.revealed = true;
+    renderHint(state, ui, step);
+  }
+
+  function closeHint(ui) {
+    if (ui.hint.open) ui.hint.close();
+  }
+
+  game.Render = { getUI, renderGame, setMessage, openKeypad, closeKeypad, updateKeypad, showVictory, openObjectDialog, closeObjectDialog, openManual, closeManual, openHint, revealHintDetail, closeHint };
 })();

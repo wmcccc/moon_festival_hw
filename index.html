@@ -170,14 +170,48 @@
             <h3><span aria-hidden="true">✎</span> 月兔解謎手帳</h3>
             <p>手帳是給玩家自己寫的空白筆記區，<b>遊戲不會自動填入任何線索</b>。線索只會出現在遊戲訊息或物件特寫裡，看到就動手打字記下來。切換場景時手帳內容會保留，重新整理頁面後則會清空。</p>
           </article>
+
+          <article class="manual-item">
+            <h3><span aria-hidden="true">💡</span> 角落的提示燈</h3>
+            <p>畫面右下角有一顆燈泡，卡關時按一下就會告訴你<b>下一個該做的動作</b>（去哪個房間、對哪個物件）。提示只講方向，不會直接寫出線索數字或密碼；真的想再問仔細一點，可以按「再說得清楚一點」補一句補充說明。用掉幾次提示會顯示在提示框右上角。</p>
+          </article>
         </div>
 
         <button class="keypad-submit manual-dismiss" id="manual-dismiss" type="button">開始冒險</button>
       </section>
     </dialog>
 
+    <dialog class="hint-dialog" id="hint-dialog" aria-labelledby="hint-title">
+      <section class="hint-panel">
+        <button class="dialog-close" id="hint-close" type="button" aria-label="關閉遊戲提示">×</button>
+        <p class="eyebrow">MOON HINT</p>
+        <h2 id="hint-title">月兔提示</h2>
+        <p class="hint-lead">下一步提示<span class="hint-count" id="hint-count">已使用 0 次提示</span></p>
+
+        <div class="hint-body">
+          <p class="hint-room" id="hint-room" hidden></p>
+          <h3 class="hint-goal" id="hint-goal"></h3>
+          <p class="hint-text" id="hint-text"></p>
+          <p class="hint-nudge" id="hint-nudge" hidden></p>
+        </div>
+
+        <p class="hint-note">提示只指出方向與操作方式，線索數字與密碼仍要自己從手帳推。</p>
+
+        <div class="hint-actions">
+          <button class="modal-action" id="hint-more" type="button" hidden>再說得清楚一點</button>
+          <button class="keypad-submit hint-dismiss" id="hint-dismiss" type="button">我懂了</button>
+        </div>
+      </section>
+    </dialog>
+
+    <button class="hint-trigger" id="hint-trigger" type="button" aria-haspopup="dialog" aria-label="需要提示？按一下看看接下來該做什麼">
+      <span class="hint-bulb" aria-hidden="true">💡</span>
+      <span class="hint-trigger-label">提示</span>
+    </button>
+
     <script defer src="js/gameState.js"></script>
     <script defer src="js/roomData.js"></script>
+    <script defer src="js/hintData.js"></script>
     <script defer src="js/render.js"></script>
     <script defer src="js/interactions.js"></script>
     <script defer src="js/main.js"></script>

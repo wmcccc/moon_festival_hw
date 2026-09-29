@@ -84,6 +84,7 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
           if (action.view === 'moon-chart') state.progress.starChartViewed = true;
           if (action.view === 'party-table') state.progress.partyTableSearched = true;
           if (action.view === 'star-notebook') state.progress.observatoryNotesRead = true;
+          if (action.view === 'recipe-note-wall') state.progress.recipeNoteRead = true;
           openDetail(object);
           break;
         case 'well':
@@ -449,6 +450,14 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     ui.manual.querySelector('#manual-close').addEventListener('click', () => game.Render.closeManual(ui));
     ui.manual.querySelector('#manual-dismiss').addEventListener('click', () => game.Render.closeManual(ui));
 
+    ui.hintTrigger.addEventListener('click', () => game.Render.openHint(state, ui));
+    ui.hint.querySelector('#hint-close').addEventListener('click', () => game.Render.closeHint(ui));
+    ui.hint.querySelector('#hint-dismiss').addEventListener('click', () => game.Render.closeHint(ui));
+    ui.hint.querySelector('#hint-more').addEventListener('click', () => game.Render.revealHintDetail(state, ui));
+    ui.hint.addEventListener('close', () => {
+      ui.objects.querySelectorAll('.is-hinted').forEach((object) => object.classList.remove('is-hinted'));
+    });
+
     ui.notes.addEventListener('input', () => {
       state.notes = ui.notes.value;
     });
@@ -460,10 +469,34 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     });
 
     document.addEventListener('keydown', (event) => {
-      if (!ui.keypad.open) return;
-      if (/^\d$/.test(event.key)) pressKey(event.key);
-      else if (event.key === 'Backspace') pressKey('delete');
-      else if (event.key === 'Enter') submitPassword();
+      // keydown 掛在 document 上，event.target 可能是 document 本身（沒有 closest），
+      // 這裡一定要先確認是元素再往下走，否則整個鍵盤事件都會在這裡爆掉。
+      const target = event.target;
+      if (target instanceof Element && target.closest('input, textarea, [contenteditable]')) return;
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+      if (ui.hint.open) {
+        if (event.key === 'Escape') return; // 交給 <dialog> 自己處理
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          game.Render.closeHint(ui);
+        }
+        return;
+      }
+
+      // 密碼盤開著時，數字鍵盤只服務於密碼輸入。
+      if (ui.keypad.open) {
+        if (/^\d$/.test(event.key)) pressKey(event.key);
+        else if (event.key === 'Backspace') pressKey('delete');
+        else if (event.key === 'Enter') submitPassword();
+        return;
+      }
+
+      const anyDialogOpen = ui.manual.open || ui.objectDialog.open || ui.victory.open;
+      if (!anyDialogOpen && (event.key === 'h' || event.key === 'H' || event.key === '?')) {
+        event.preventDefault();
+        game.Render.openHint(state, ui);
+      }
     });
 
     ui.victory.querySelector('#victory-close').addEventListener('click', () => ui.victory.close());

@@ -318,9 +318,32 @@ h1 {
   box-shadow: inset 0 0 28px rgb(190 120 255 / 17%), 0 0 22px rgb(190 120 255 / 18%);
 }
 
+.object.is-hinted {
+  border-color: var(--mint);
+  box-shadow: inset 0 0 0 1px rgb(158 216 194 / 25%), 0 0 26px rgb(158 216 194 / 22%);
+  animation: hint-pulse 1.5s ease-in-out infinite;
+}
+
+.object.is-hinted .object-name::after {
+  content: '←';
+  margin-left: 6px;
+  color: var(--mint);
+  font-size: 12px;
+}
+
 @keyframes mechanism-release {
   0%, 25%, 55%, 80% { transform: translateX(-3px); }
   12%, 40%, 68%, 100% { transform: translateX(3px); }
+}
+
+@keyframes hint-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 1px rgb(158 216 194 / 25%), 0 0 26px rgb(158 216 194 / 22%); }
+  50% { box-shadow: inset 0 0 0 1px rgb(158 216 194 / 45%), 0 0 36px rgb(158 216 194 / 38%); }
+}
+
+@keyframes hint-bulb-glow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 3px rgb(243 217 135 / 55%)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 9px rgb(243 217 135 / 95%)); }
 }
 
 .room-navigation {
@@ -978,6 +1001,167 @@ h1 {
   margin-top: 0;
 }
 
+.hint-dialog {
+  width: min(480px, calc(100% - 28px));
+  max-height: min(760px, calc(100% - 32px));
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgb(158 216 194 / 40%);
+  border-radius: 9px;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgb(158 216 194 / 16%), transparent 52%),
+    #142344;
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 58%);
+}
+
+.hint-dialog::backdrop {
+  background: rgb(4 10 24 / 78%);
+  backdrop-filter: blur(5px);
+}
+
+.hint-panel {
+  position: relative;
+  padding: 27px 27px 25px;
+}
+
+.hint-panel h2 {
+  margin: 0 0 15px;
+  font-size: 23px;
+}
+
+.hint-lead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 15px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.hint-count {
+  margin-left: auto;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgb(255 255 255 / 6%);
+  color: var(--mint);
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
+.hint-body {
+  padding: 15px 17px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: rgb(7 17 39 / 38%);
+}
+
+.hint-room {
+  margin: 0 0 9px;
+  padding-bottom: 9px;
+  border-bottom: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+.hint-room b {
+  color: var(--moonlight);
+  font-weight: 800;
+}
+
+.hint-goal {
+  margin: 0 0 8px;
+  color: var(--mint);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.hint-text {
+  margin: 0;
+  color: #c5cee0;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.hint-nudge {
+  margin: 13px 0 0;
+  padding: 11px 13px;
+  border-left: 3px solid var(--moonlight);
+  border-radius: 0 5px 5px 0;
+  background: rgb(243 217 135 / 8%);
+  color: #d8dced;
+  font-size: 12.5px;
+  line-height: 1.85;
+}
+
+.hint-nudge::before {
+  content: '補充說明　';
+  color: var(--moonlight);
+  font-weight: 800;
+}
+
+.hint-note {
+  margin: 15px 0 18px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+
+.hint-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hint-actions .modal-action {
+  flex: 1 1 190px;
+  margin: 0;
+}
+
+.hint-actions .hint-dismiss {
+  flex: 1 1 110px;
+  width: auto;
+  margin-top: 0;
+}
+
+.hint-trigger {
+  position: fixed;
+  right: 26px;
+  bottom: 26px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 9px 19px 9px 14px;
+  border: 1px solid rgb(243 217 135 / 45%);
+  border-radius: 999px;
+  background: rgb(20 35 68 / 93%);
+  color: var(--moonlight);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 45%);
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.hint-trigger:hover {
+  border-color: rgb(243 217 135 / 85%);
+  background: rgb(31 52 96 / 95%);
+  transform: translateY(-2px);
+}
+
+.hint-bulb {
+  font-size: 19px;
+  line-height: 1;
+  animation: hint-bulb-glow 2.6s ease-in-out infinite;
+}
+
 @media (max-width: 760px) {
   .game {
     width: min(100% - 36px, 620px);
@@ -1008,6 +1192,20 @@ h1 {
     padding: 22px 20px 22px;
   }
 
+  .hint-panel {
+    padding: 22px 20px 22px;
+  }
+
+  .hint-trigger {
+    right: 18px;
+    bottom: 18px;
+    min-height: 42px;
+    padding: 8px 15px 8px 12px;
+  }
+
+  .game {
+    padding-bottom: 84px;
+  }
 }
 
 @media (max-width: 460px) {
@@ -1055,6 +1253,23 @@ h1 {
     top: 11%;
     right: -30px;
     opacity: 0.7;
+  }
+
+  .hint-trigger-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .hint-trigger {
+    padding: 9px 13px;
+  }
+
+  .hint-bulb {
+    font-size: 21px;
   }
 }
 

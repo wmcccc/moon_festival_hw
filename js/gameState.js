@@ -40,6 +40,7 @@ Object.assign(window.MoonBunnyGame, {
         yuzuJuiceFound: false,
         flourPileOpened: false,
         flashlightBoxOpened: false,
+        recipeNoteRead: false,
         mochiBoxOpened: false,
         mortarFilled: false,
         mortarStrikes: 0,
@@ -70,6 +71,11 @@ Object.assign(window.MoonBunnyGame, {
         clue3: null,
         clue4: null,
         flashlightOrder: null,
+      },
+      hints: {
+        stepId: null,
+        revealed: false,
+        count: 0,
       },
     };
   },
