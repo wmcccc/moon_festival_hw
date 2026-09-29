@@ -445,6 +445,10 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
 
     ui.objectDialog.querySelector('#object-dialog-close').addEventListener('click', () => game.Render.closeObjectDialog(ui));
 
+    ui.manualTrigger.addEventListener('click', () => game.Render.openManual(ui));
+    ui.manual.querySelector('#manual-close').addEventListener('click', () => game.Render.closeManual(ui));
+    ui.manual.querySelector('#manual-dismiss').addEventListener('click', () => game.Render.closeManual(ui));
+
     ui.notes.addEventListener('input', () => {
       state.notes = ui.notes.value;
     });

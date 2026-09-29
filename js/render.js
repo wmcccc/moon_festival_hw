@@ -25,6 +25,8 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
       objectDialogDescription: document.querySelector('#object-dialog-description'),
       objectDialogContent: document.querySelector('#object-dialog-content'),
       objectDialogMessage: document.querySelector('#object-dialog-message'),
+      manualTrigger: document.querySelector('#manual-trigger'),
+      manual: document.querySelector('#manual-dialog'),
     };
   }
 
@@ -265,5 +267,13 @@ window.MoonBunnyGame = window.MoonBunnyGame || {};
     if (ui.objectDialog.open) ui.objectDialog.close();
   }
 
-  game.Render = { getUI, renderGame, setMessage, openKeypad, closeKeypad, updateKeypad, showVictory, openObjectDialog, closeObjectDialog };
+  function openManual(ui) {
+    if (!ui.manual.open) ui.manual.showModal();
+  }
+
+  function closeManual(ui) {
+    if (ui.manual.open) ui.manual.close();
+  }
+
+  game.Render = { getUI, renderGame, setMessage, openKeypad, closeKeypad, updateKeypad, showVictory, openObjectDialog, closeObjectDialog, openManual, closeManual };
 })();

@@ -18,7 +18,10 @@
           <span class="wordmark-icon" aria-hidden="true">月</span>
           <span>中秋密室小逃脫</span>
         </a>
-        <p class="chapter-label"><span class="status-dot"></span> 廣寒宮工作坊</p>
+        <div class="topbar-actions">
+          <p class="chapter-label"><span class="status-dot"></span> 廣寒宮工作坊</p>
+          <button class="manual-trigger" id="manual-trigger" type="button" aria-haspopup="dialog">📖 遊玩手冊</button>
+        </div>
       </header>
 
       <div class="game-layout">
@@ -147,6 +150,29 @@
         </div>
         <div class="object-dialog-content" id="object-dialog-content"></div>
         <p class="object-dialog-message" id="object-dialog-message" role="status" aria-live="polite"></p>
+      </section>
+    </dialog>
+
+    <dialog class="manual-dialog" id="manual-dialog" aria-labelledby="manual-title">
+      <section class="manual-panel">
+        <button class="dialog-close" id="manual-close" type="button" aria-label="關閉遊玩手冊">×</button>
+        <p class="eyebrow">HOW TO PLAY</p>
+        <h2 id="manual-title">遊玩手冊</h2>
+        <p class="manual-lead">這本手冊只說明「怎麼操作介面」，不會劇透線索與答案。</p>
+
+        <div class="manual-list">
+          <article class="manual-item">
+            <h3><span aria-hidden="true">🎒</span> 隨身背包</h3>
+            <p>撿到的道具會自動進到右側的隨身背包。把游標按在道具上拖曳到場景中的物件，或先點開物件特寫、再拖到特寫裡的「拖曳物件到此」放置區，就能使用它。部分機關會消耗道具（用掉後離開背包），用錯道具只會得到一句提示，不會把路堵死。</p>
+          </article>
+
+          <article class="manual-item">
+            <h3><span aria-hidden="true">✎</span> 月兔解謎手帳</h3>
+            <p>手帳是給玩家自己寫的空白筆記區，<b>遊戲不會自動填入任何線索</b>。線索只會出現在遊戲訊息或物件特寫裡，看到就動手打字記下來。切換場景時手帳內容會保留，重新整理頁面後則會清空。</p>
+          </article>
+        </div>
+
+        <button class="keypad-submit manual-dismiss" id="manual-dismiss" type="button">開始冒險</button>
       </section>
     </dialog>
 

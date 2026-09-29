@@ -5,4 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   game.Render.renderGame(state, ui);
   game.Interactions.bindInteractions(state, ui, game.Render);
+
+  // 首次進入先秀出遊玩手冊，讓玩家知道道具要拖曳、線索要自己記。
+  game.Render.openManual(ui);
 });
